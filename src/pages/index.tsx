@@ -36,16 +36,20 @@ const HomePage = () => {
 const NFTCard = ({
   collectionName,
   nftId,
+  contractAddress,
 }: {
   collectionName: string;
   nftId: string;
+  contractAddress: string;
 }) => {
   const [value, setValue] = useState("");
 
   return (
-    <div className="border border-black rounded-md w-full flex bg-clip-border mb-10">
+    <div className="border border-black rounded-md w-full flex bg-clip-border mb-8">
       <div className="py-2 px-3">
-        <h2 className="text-lg font-semibold">{collectionName}</h2>
+        <h2 className="text-lg font-semibold cursor-pointer">
+          {collectionName}
+        </h2>
         <h2>{nftId}</h2>
         <button className="mt-3 border border-black rounded-md px-2 py-1">
           Appraise Value
