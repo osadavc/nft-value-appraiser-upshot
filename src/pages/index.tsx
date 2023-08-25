@@ -34,20 +34,16 @@ const HomePage = () => {
 };
 
 const NFTCard = ({
-  nftImage,
   collectionName,
   nftId,
 }: {
-  nftImage: string;
   collectionName: string;
   nftId: string;
 }) => {
   const [value, setValue] = useState("");
 
   return (
-    <div className="border border-black rounded-md w-full flex bg-clip-border">
-      <img src={nftImage} alt="" className="w-32 h-32 rounded-md" />
-
+    <div className="border border-black rounded-md w-full flex bg-clip-border mb-10">
       <div className="py-2 px-3">
         <h2 className="text-lg font-semibold">{collectionName}</h2>
         <h2>{nftId}</h2>
