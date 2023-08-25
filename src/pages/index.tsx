@@ -19,8 +19,7 @@ const HomePage = () => {
             media_items: false,
           },
           headers: {
-            "X-Api-Key":
-              "ZX7dQFxVhgFo0393yok1LgbElbvsR9OeImKEj9KcyO9ybazSMwKXzv6GGJ9g5wDj",
+            "X-Api-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
           },
         }
       )
@@ -87,9 +86,24 @@ const NFTCard = ({
   contractAddress: string;
 }) => {
   const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
+
+  const appraiseValue = async () => {
+    const ethValue = (
+      await axios.get("/api/get-nft-value", {
+        params: {
+          contractAddress,
+          tokenId: nftId,
+        },
+      })
+    ).data.ethPrice;
+
+    setValue(ethValue);
+    setError(ethValue === "Not yet appraised");
+  };
 
   return (
-    <div className="border border-black rounded-md w-full flex bg-clip-border mb-10">
+    <div className="border border-black rounded-md w-full flex bg-clip-border mb-8">
       <div className="py-2 px-3">
         <h2
           className="text-lg font-semibold cursor-pointer"
@@ -103,9 +117,19 @@ const NFTCard = ({
           {collectionName}
         </h2>
         <h2>{nftId}</h2>
-        <button className="mt-3 border border-black rounded-md px-2 py-1">
-          Appraise Value
-        </button>
+        {value ? (
+          <h2>
+            Appraised Value by Upshot: {value}
+            {!error && "Ξ"}
+          </h2>
+        ) : (
+          <button
+            className="mt-3 border border-black rounded-md px-2 py-1"
+            onClick={appraiseValue}
+          >
+            Appraise Value
+          </button>
+        )}
       </div>
     </div>
   );
