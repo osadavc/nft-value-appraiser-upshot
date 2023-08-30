@@ -116,7 +116,7 @@ const NFTCard = ({
         >
           {collectionName}
         </h2>
-        <h2>{nftId}</h2>
+        <h2>{nftId.slice(0, 10)}</h2>
         {value ? (
           <h2>
             Appraised Value by Upshot: {value}
